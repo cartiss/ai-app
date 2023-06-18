@@ -1,0 +1,26 @@
+name: Code checks
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    types: [opened, reopened, ready_for_review, synchronize]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Python3.11
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.11
+      - name: Install requirements
+        run: | 
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Flake8
+        run: flake8 app/ handwritten-text-recognition-model/
+      - name: Pylint
+        run: pylint app/ handwritten-text-recognition-model/
