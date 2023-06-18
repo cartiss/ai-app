@@ -21,6 +21,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Flake8
-        run: flake8 app/ handwritten-text-recognition-model/
+        run: flake8 app/ handwritten_text_recognition_model/
       - name: Pylint
-        run: pylint app/ handwritten-text-recognition-model/
+        run: pylint app/ handwritten_text_recognition_model/
