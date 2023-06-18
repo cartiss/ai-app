@@ -8,8 +8,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  linters:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        build_target: [pylint, flake8]
     steps:
       - uses: actions/checkout@v3
       - name: Install Python3.11
@@ -20,7 +23,5 @@ jobs:
         run: | 
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Flake8
-        run: flake8 app/ handwritten_text_recognition_model/
-      - name: Pylint
-        run: pylint app/ handwritten_text_recognition_model/
+      - name: Check ${{ build_target }}
+        run: ${{ build_target }} app/ handwritten_text_recognition_model/
