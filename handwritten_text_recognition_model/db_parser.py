@@ -30,7 +30,7 @@ class BaseDatasetParser:
                 - key: Page id.
                 - value: Full text on the page.
         """
-        pass
+        pass  # pylint: disable=unnecessary-pass
 
 
 class IAMDatasetParser(BaseDatasetParser):
@@ -59,7 +59,8 @@ class IAMDatasetParser(BaseDatasetParser):
         """
         tmp_dict = {}
 
-        with open(os.path.join(self.archives_path, 'ascii', 'lines.txt'), encoding='UTF8') as lines_file:
+        with open(os.path.join(self.archives_path, 'ascii', 'lines.txt'),
+                  encoding='UTF8') as lines_file:
             for line in lines_file:
                 if self.check_line_correctness(line):
                     line_split = line.split(' ')
@@ -84,8 +85,8 @@ def main() -> None:
     """Unpack archives and parse the dataset."""
     archives_names = ['ascii.tgz', 'formsE-H.tgz', 'formsI-Z.tgz']
     parser = IAMDatasetParser(archives_path='dataset')
-    #parser.unpack(archives_names)
-    print(parser.parse_dataset())
+    parser.unpack(archives_names)
+    parser.parse_dataset()
 
 
 if __name__ == '__main__':
