@@ -57,7 +57,7 @@ class IAMDatasetParser(BaseDatasetParser):
                 - key: Page id.
                 - value: Full text on the page.
         """
-        tmp_dict = {}
+        parsed_data = {}
 
         with open(os.path.join(self.archives_path, 'ascii', 'lines.txt'),
                   encoding='UTF8') as lines_file:
@@ -75,10 +75,10 @@ class IAMDatasetParser(BaseDatasetParser):
                         strip() + ' '
                     if value[-2] == '-':
                         value = value[:-2]
-                    tmp_dict.setdefault(key, '')
-                    tmp_dict[key] += value
+                    parsed_data.setdefault(key, '')
+                    parsed_data[key] += value
 
-        return tmp_dict
+        return parsed_data
 
 
 def main() -> None:
