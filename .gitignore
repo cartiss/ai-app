@@ -163,3 +163,4 @@ cython_debug/
 env/
 venv/
 virtualenv/
+handwritten_text_recognition_model/dataset/
