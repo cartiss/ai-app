@@ -23,4 +23,4 @@ jobs:
         run: | 
           curl -sSL https://install.python-poetry.org | python -
       - name: Check ${{ matrix.build_target }}
-        run: ${{ matrix.build_target }} .
+        run: poetry run ${{ matrix.build_target }} .
