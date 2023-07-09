@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "poetry-ai"
+version = "0.1.0"
+description = "Poetry environment for AI application"
+authors = ["Kyryl Fesiuk <kirill.fesiuk@gmail.com>"]
+readme = "README.md"
+packages = [{include = "poetry_ai"}]
+
+[tool.poetry.dependencies]
+python = ">=3.9, <3.12"
+flake8 = "^6.0.0"
+pylint = "^2.17.4"
+tensorflow-io-gcs-filesystem = "0.31.0"
+tensorflow = "^2.13.0"
+tensorflow-intel = "^2.13.0"
+opencv-python = "^4.8.0.74"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]

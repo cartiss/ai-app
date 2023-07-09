@@ -24,4 +24,4 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Check ${{ matrix.build_target }}
-        run: ${{ matrix.build_target }} app/ handwritten_text_recognition_model/
+        run: ${{ matrix.build_target }} .
