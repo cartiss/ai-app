@@ -1,9 +1,9 @@
 name: Code checks
 on:
   push:
-    branches: [ main ]
+    branches: [ test ]
   pull_request:
-    branches: [ main ]
+    branches: [ test ]
     types: [opened, reopened, ready_for_review, synchronize]
   workflow_dispatch:
 
