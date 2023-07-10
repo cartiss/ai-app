@@ -18,5 +18,3 @@ opencv-python = "^4.8.0.74"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.scripts]
