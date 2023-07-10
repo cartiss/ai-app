@@ -1,0 +1,202 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    font-size: 18px;
+}
+
+h1 {
+    margin: 20px;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header {
+    background-color: #1abc9c;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.header ul {
+    margin: 0;
+}
+
+.logo {
+    font-size: 35px;
+    padding: 15px 0px 15px 15px;
+}
+
+.logo a {
+    color: #fff;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
+}
+.float-right{
+  float: right;
+}
+.fa{
+ font-size: .8em;
+  line-height: 22px !important;
+}
+dropdown{
+   display: inline-block;
+   margin: 20px 50px;
+}
+dropdown label, dropdown ul li{
+  display: block;
+  width: 200px;
+  background: #ECF0F1;
+  padding: 15px 20px;
+}
+dropdown label:hover, dropdown ul li:hover{
+  background: #1ABC9C;
+  color: white;
+  cursor: pointer;
+}
+dropdown label{
+  color: #1ABC9C;
+  border-left: 4px solid #1ABC9C;
+  border-radius: 0 5px 0 0;
+  position: relative;
+  z-index: 2;
+}
+dropdown input{
+  display: none;
+}
+dropdown input ~ ul{
+  position: relative;
+  visibility: hidden;
+  opacity: 0;
+  top: -20px;
+  z-index: 1;
+}
+dropdown input:checked + label{
+  background: #1ABC9C;
+  color: white;
+}
+
+dropdown input:checked ~ ul{
+  visibility: visible;
+  opacity: 1;
+  top: 0;
+}
+$colors: #E74C3C, #0072B5, #2C3E50;
+
+@for $i from 1 through length($colors) {
+  dropdown ul li:nth-child(#{$i}) {
+    border-left: 4px solid nth($colors, $i);
+    .fa{
+      color: nth($colors, $i);
+    }
+    &:hover {
+        background: nth($colors, $i);
+        color: white;
+      .fa{
+        color: white;
+      }
+    }
+  }
+}
+
+.animate{
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -ms-transition: all .3s;
+  -ms-transition: all .3s;
+  transition: all .3s;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden; /* Chrome and Safari */
+  -moz-backface-visibility:hidden; /* Firefox */
+  -ms-backface-visibility:hidden; /* Internet Explorer */
+}
+
+.animate a {
+    color: #000;
+}
+
+.dropdownes_container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+}
+
+.form {
+    position: relative;
+    background: #FFFFFF;
+    width: 600px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+
+}
+.form textarea {
+    outline: 0;
+    background: #ecf0f1;
+    width: 100%;
+    border: 0;
+    margin-top: 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    resize: none;
+}
+
+.confirm_button {
+    background: #1abc9c;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 200px;
+    margin-top: 15px;
+}
+
+.confirm_button:hover {
+    background: #16a085;
+    transition-duration: 400ms;
+}
+
+.confirm_button:active {
+    background: #117964;
+    transition-duration: 300ms;
+}
+
+.mainmenu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.mainmenu a {
+    color: #fff;
+}
+
+.github {
+    margin-left: auto;
+    margin-right: 20px;
+    padding: 7px;
+    border-radius: 20px;
+}
+
+.github:hover {
+    background: #20d4b0;
+    transition-duration: 400ms;
+}
+
+.menu_item {
+    margin-left: 50px;
+}

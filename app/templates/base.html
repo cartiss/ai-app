@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" href="{{ url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
+    {% block title -%}
+        {% if title %}
+            <title>{{title}}</title>
+        {% else %}
+            <title>AI app</title>
+        {% endif %}
+    {% endblock %}
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+</head>
+<body>
+    {% block content -%}
+        {%- block mainmenu -%}
+            <div class="header">
+				<ul id="mainmenu" class="mainmenu">
+				    <li class="logo"><a href="{{ url_for('index') }}">AI Application</a></li>
+                    <li><a class="menu_item" href="#">MenuItem1</a></li>
+                    <li><a class="menu_item" href="#">MenuItem2</a></li>
+                    <li><a class="menu_item" href="#">MenuItem3</a></li>
+                    <li class="github"><a href="https://github.com/cartiss/ai-app">GitHub</a></li>
+				</ul>
+			</div>
+        {% endblock mainmenu -%}
+    {% endblock -%}
+</body>
+</html>
