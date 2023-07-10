@@ -7,7 +7,7 @@ app.config['SECRET_KEY'] = 'iejowda32msflsn3dkf7jnad9mk1lpd'
 
 @app.route("/")
 def index() -> None:
-    """Render homepage."""
+    """Render home page."""
     return render_template('index.html')
 
 
