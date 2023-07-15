@@ -7,52 +7,47 @@ import pandas as pd
 class NaiveBayesModel:
     """Class for Naive Bayes model determining whether a tweet is about a disaster based on its text."""
 
-    def __init__(self, data: pd.DataFrame) -> None:
-        """
-        Initializes empty parameters and the dataset.
-        :param data: pd.DataFrame with the training data. Must contain the following columns:
-            - stemmed: contains a dictionary of stemmed words of the clean text of the tweet;
-            - target: contains the label for each example;
-        """
-        self.data = data
-        self.freq_dict = {}
-        self.class_freq = {}
+    def __init__(self) -> None:
+        """Initializes class fields."""
+        self.text_samples = None
+        self.labels = None
+        self.freq_dict = None
+        self.class_freq = None
 
-    def calculate_class_freq(self) -> None:
-        """Calculates the amount of examples with each class label in the training data."""
-        self.class_freq[0] = len(self.data.loc[self.data.target == 0])
-        self.class_freq[1] = len(self.data.loc[self.data.target == 1])
+    def train(self, text_samples: pd.Series, labels: pd.Series) -> None:
+        """
+        Updates the model's parameters with values from the training data.
 
-    def generate_freq_dict(self) -> None:
-        """Calculates the amount of occurrences of each word for each class label in the training data."""
-        for _, row in self.data.iterrows():
-            for word in row['processed_text']:
+        :param text_samples: pd.Series containing processed text samples.
+        :param labels: pd.Series containing labels for the text samples with the corresponding index.
+        """
+        # calculate class frequencies
+        self.class_freq[0] = len(self.labels.loc[self.labels == 0])
+        self.class_freq[1] = len(self.labels.loc[self.labels == 1])
+
+        # calculate occurrences of each word in the training data
+        for _, (text, label) in pd.concat([text_samples, labels], axis=1).iterrows():
+            for word in text:
                 if word not in self.freq_dict:
                     self.freq_dict[word] = {0: 0, 1: 0}
 
-                match row['target']:
+                match label:
                     case 0:
                         self.freq_dict[word][0] += 1
                     case 1:
                         self.freq_dict[word][1] += 1
 
-    def train(self) -> None:
-        """Updates the param dictionaries with values from the training data."""
-        self.calculate_class_freq()
-        self.generate_freq_dict()
-
-    def predict(self, data_frame: pd.DataFrame) -> None:
+    def predict(self, text_samples: pd.Series) -> pd.Series:
         """
-        Predicts class labels for each example in the given data x and appends the 'predictions' column
-        with labels to it.
-        :param data_frame: pd.DataFrame with tweet texts for prediction. Must contain the following columns:
-            - stemmed: contains a dictionary of stemmed words of the clean text of the tweet.
+        Predicts class labels for each example in the given processed text samples and returns
+        a pd.Series with predictions for text samples with the corresponding index.
+        :param text_samples: pd.Series with tweet texts for prediction.
         """
         predictions = []
 
-        for _, row in data_frame.iterrows():
+        for _, text in text_samples:
             prob_dict = {0: 1.0, 1: 1.0}
-            for word in row['processed_text']:
+            for word in text:
                 if word in self.freq_dict:
                     for i in [0, 1]:
                         prob_dict[i] *= self.freq_dict[word][i] / self.class_freq[i]
@@ -62,11 +57,11 @@ class NaiveBayesModel:
 
             predictions.append(max(prob_dict, key=prob_dict.get))
 
-        data_frame['predictions'] = predictions
+        return pd.Series(predictions, index=text_samples.index)
 
     def export_parameters_to_json(self, class_freq_path: str, words_freq_path: str) -> None:
         """
-        Exports current parameters to .json files.
+        Exports current model parameters to .json files.
         :param class_freq_path: the path to the .json file to store the dictionary with class frequencies.
         :param words_freq_path: the path to the .json file to store the dictionary with frequencies for each word.
         """
@@ -88,11 +83,12 @@ class NaiveBayesModel:
 
     def import_parameters(self, class_freq_path: str, words_freq_path: str) -> None:
         """
-        Imports current parameters from .json files.
+        Imports model parameters from .json files.
         :param class_freq_path: the path to the .json file with the dictionary with class frequencies.
         :param words_freq_path: the path to the .json file with the dictionary with frequencies for each word.
         """
 
+        # TODO: exception handling
         with json.open(class_freq_path, mode='r', encoding='utf-8') as file:
             self.class_freq = json.loads(file.read())
 

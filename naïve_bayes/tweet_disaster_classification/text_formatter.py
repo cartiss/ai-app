@@ -1,49 +1,14 @@
-"""Data Parser for custom and pre-compiled data for disaster tweets detection."""
+"""Text formatter."""
 import re
 import string
-from typing import List
 
 import pandas as pd
 import contractions
 import nltk
 
 
-class DisasterTweetDataFrame:
-    """Parser for the Getting Started with NLP Kaggle challenge data."""
-
-    def __init__(self, text: List[str] = None) -> None:
-        """
-        Class constructor for loading the data from a set of tweet texts.
-        :param text: set of tweet text samples. Data type must be an iterable.
-        """
-        if text:
-            self.data_frame = pd.DataFrame({'text': text})
-        else:
-            self.data_frame = pd.DataFrame({'text': []})
-
-    def read_from_csv(self, filepath: str, index_col: str = None) -> None:
-        """
-        Loads the data from a .csv file.
-        :param filepath: path to the file to load data from.
-        :param index_col: (optional) the name of the index column in the dataset.
-        """
-        try:
-            if not index_col:
-                self.data_frame = pd.read_csv(filepath)
-            else:
-                self.data_frame = pd.read_csv(filepath, index_col=index_col)
-        except FileNotFoundError:
-            self.data_frame = pd.DataFrame()
-            print("Specified file not found. Dataset is initialized empty instead.")
-        except pd.errors.IndexingError:
-            self.data_frame = pd.DataFrame()
-            print("Mismatch in dimensions for the dataset. Dataset is initialized empty instead.")
-        except pd.errors.InvalidColumnName:
-            self.data_frame = pd.DataFrame()
-            print("Invalid column name for the dataset. Dataset is initialized empty instead.")
-        except pd.errors.ParserError:
-            self.data_frame = pd.DataFrame()
-            print("Parser error. Dataset is initialized empty instead.")
+class TweetTextFormatter:
+    """Contains methods for formatting and cleaning sets of text samples."""
 
     @staticmethod
     def clean_text(text: pd.Series) -> pd.Series:
@@ -122,10 +87,10 @@ class DisasterTweetDataFrame:
         stemmed = tokenized_text.apply(lambda text: [stemmer.stem(word) for word in text])
         return pd.Series(stemmed, index=tokenized_text.index)
 
-    def process_text(self) -> None:
+    def process_text(self, text: pd.Series) -> pd.Series:
         """Processes the text samples in the data and appends the 'processed_text' column to the object's dataframe."""
-        cleaned = self.clean_text(self.data_frame['text'])
+        cleaned = self.clean_text(text)
         tokenized = self.tokenize(cleaned)
         removed_stopwords = self.remove_stopwords(tokenized)
         stemmed = self.stem(removed_stopwords)
-        self.data_frame['processed_text'] = stemmed
+        return pd.Series(stemmed, index=text.index)
