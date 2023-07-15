@@ -20,10 +20,8 @@ jobs:
         with:
           python-version: 3.11
       - name: Install Poetry
-        run: curl -sSL https://install.python-poetry.org | python -
-      - name: Add Poetry to $PATH
-        run: export poetry=~/.local/share/pypoetry/venv/bin/poetry
+        run: curl -sSL https://install.python-poetry.org | python - && export poetry=~/.local/share/pypoetry/venv/bin/poetry
       - name: Install dependencies
-        run: poetry config virtualenvs.in-project true && poetry install
+        run: poetry install --no-root
       - name: Check ${{ matrix.build_target }}
         run: poetry run ${{ matrix.build_target }} .
