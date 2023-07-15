@@ -1046,42 +1046,6 @@ files = [
 ]
 
 [[package]]
-name = "tensorflow-intel"
-version = "2.13.0"
-description = "TensorFlow is an open source machine learning framework for everyone."
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "tensorflow_intel-2.13.0-cp310-cp310-win_amd64.whl", hash = "sha256:edb6ad553279bce6fd6699f3b965a9b5677aef75738d3a3d8773f594a6686a71"},
-    {file = "tensorflow_intel-2.13.0-cp311-cp311-win_amd64.whl", hash = "sha256:b3a12aefc0bbacdb0132674bc3fed03a70c14c91d48b00d13fcefee15d868e36"},
-    {file = "tensorflow_intel-2.13.0-cp38-cp38-win_amd64.whl", hash = "sha256:2922a3ba74987d45eac98fa284037fef8a3fab4fa0367dd401903514ded38a75"},
-    {file = "tensorflow_intel-2.13.0-cp39-cp39-win_amd64.whl", hash = "sha256:a8a661eccd35cc608353d36c692484476023d9e374041bc82a34aa47133413df"},
-]
-
-[package.dependencies]
-absl-py = ">=1.0.0"
-astunparse = ">=1.6.0"
-flatbuffers = ">=23.1.21"
-gast = ">=0.2.1,<=0.4.0"
-google-pasta = ">=0.1.1"
-grpcio = ">=1.24.3,<2.0"
-h5py = ">=2.9.0"
-keras = ">=2.13.1,<2.14"
-libclang = ">=13.0.0"
-numpy = ">=1.22,<=1.24.3"
-opt-einsum = ">=2.3.2"
-packaging = "*"
-protobuf = ">=3.20.3,<4.21.0 || >4.21.0,<4.21.1 || >4.21.1,<4.21.2 || >4.21.2,<4.21.3 || >4.21.3,<4.21.4 || >4.21.4,<4.21.5 || >4.21.5,<5.0.0dev"
-setuptools = "*"
-six = ">=1.12.0"
-tensorboard = ">=2.13,<2.14"
-tensorflow-estimator = ">=2.13.0,<2.14"
-tensorflow-io-gcs-filesystem = {version = ">=0.23.1", markers = "platform_machine != \"arm64\" or platform_system != \"Darwin\""}
-termcolor = ">=1.1.0"
-typing-extensions = ">=3.6.6,<4.6.0"
-wrapt = ">=1.11.0"
-
-[[package]]
 name = "tensorflow-io-gcs-filesystem"
 version = "0.31.0"
 description = "TensorFlow IO"
@@ -1312,4 +1276,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9, <3.12"
-content-hash = "78f4693e7c0ac00287d8e842bc5e7cac0ca8196b7dcd42dbf4482731af55bf9e"
+content-hash = "d879658be8cd5eddeeab9e7101141a3d837764ef6393b31de36fb45eb08a1759"

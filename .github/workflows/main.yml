@@ -24,6 +24,6 @@ jobs:
       - name: Add Poetry to $PATH
         run: export poetry=~/.local/share/pypoetry/venv/bin/poetry
       - name: Install dependencies
-        run: poetry lock --no-update && poetry install
+        run: poetry config virtualenvs.in-project true && poetry install
       - name: Check ${{ matrix.build_target }}
         run: poetry run ${{ matrix.build_target }} .
