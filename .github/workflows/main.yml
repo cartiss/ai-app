@@ -19,7 +19,11 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: 3.11
-      - name: Install linters
-        run: pip install ${{ matrix.build_target }}
+      - name: Install Poetry
+        run: curl -sSL https://install.python-poetry.org | python -
+      - name: Check current directory
+        run: ls -ls
+      - name: Add Poetry to $PATH
+        run: export poetry=~/.local/share/pypoetry/venv/bin/poetry
       - name: Check ${{ matrix.build_target }}
-        run: ${{ matrix.build_target }} .
+        run: poetry run ${{ matrix.build_target }} .
