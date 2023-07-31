@@ -3,6 +3,9 @@ import json
 import logging
 import os
 import sys
+from zipfile import ZipFile
+
+from kaggle.api.kaggle_api_extended import KaggleApi
 
 import pandas as pd
 
@@ -17,24 +20,48 @@ class SentimentAnalysisModel:
         """
         Model initialization and preprocess dataset.
 
-        :param file_path: Path to parameters file
+        :param file_path: Path to JSON parameters file
         """
         self.word_freq = {}
         self.class_freq = {}
         self.text_formatter = TweetTextFormatter()
         self.file_path = file_path
 
-        data = pd.read_csv(os.path.normpath('naïve_bayes/datasets/sentiment_analysis_dataset.csv'),
-                           encoding='latin-1', names=['sentiment', 'id', 'date', 'flag', 'user', 'text'])
-        self.train_data, self.test_data = self._preprocess_data(data)
+        self.train_data, self.test_data = self._preprocess_data()
 
-    def _preprocess_data(self, data) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    @staticmethod
+    def _download_dataset():
+        dataset_path = 'naïve_bayes/datasets'
+
+        if not os.path.exists(dataset_path):
+            os.mkdir(dataset_path)
+
+        api = KaggleApi()
+        api.authenticate()
+        api.dataset_download_files('kazanova/sentiment140')
+        zf = ZipFile('sentiment140.zip')
+        zf.extractall(path='naïve_bayes/datasets/')
+        zf.close()
+
+    def _read_dataset(self) -> pd.DataFrame:
+        try:
+            data = pd.read_csv(os.path.normpath('naïve_bayes/datasets/training.1600000.processed.noemoticon.csv'),
+                               encoding='latin-1', names=['sentiment', 'id', 'date', 'flag', 'user', 'text'])
+        except FileNotFoundError:
+            self._download_dataset()
+            data = self._read_dataset()
+
+        return data
+
+    def _preprocess_data(self) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """Preprocess dataset before training."""
+        data = self._read_dataset()
+
         data = data[['sentiment', 'text']]
 
         data.loc[data['sentiment'] == 4, 'sentiment'] = 1
 
-        data.loc['text'] = self.text_formatter.process_text(data.loc['text'])
+        data['text'] = self.text_formatter.process_text(data['text'])
 
         test_data = data[:200000]
         train_data = data[200000:]
@@ -55,7 +82,7 @@ class SentimentAnalysisModel:
         return freqs_counts
 
     def train(self) -> None:
-        """Train model and write parameters to JSON file."""
+        """Train model and export parameters to JSON file."""
         word_freq = self.count_tweets(self.train_data)
 
         class_freq = {0: len(self.train_data['sentiment'].loc[self.train_data['sentiment'] == 0]),
@@ -79,7 +106,7 @@ class SentimentAnalysisModel:
         except FileNotFoundError:
             logging.error('File model')
 
-    def _import_params(self) -> Tuple[Dict[str, Dict[str, int]], Dict[str, int]]:
+    def import_params(self) -> Tuple[Dict[str, Dict[str, int]], Dict[str, int]]:
         """
         Import parameters from JSON file.
 
@@ -105,17 +132,18 @@ class SentimentAnalysisModel:
             logging.error('Incorrect content in parameters file')
             sys.exit()
 
-    def predict(self, tweets: pd.Series) -> pd.Series:
+    @staticmethod
+    def predict(tweets: pd.Series, model_params: Tuple[Dict[str, Dict[str, int]], Dict[str, int]]) -> pd.Series:
         """
         Predict is tweet positive/negative.
 
         :param tweets: pd.Series of tweets with text
-        :param file_path: Path to parameters file
+        :param model_params: Imported parameters from JSON file
         :return: pd.Series of predictions
         """
         predictions = []
 
-        word_freq, class_freq = self._import_params()
+        word_freq, class_freq = model_params
 
         for text in tweets:
             prob_dict = {0: 1.0, 1: 1.0}
@@ -134,7 +162,7 @@ class SentimentAnalysisModel:
 
     def evaluate(self) -> float:
         """Evaluate model accuracy."""
-        predictions = self.predict(self.test_data['text'])
+        predictions = self.predict(self.test_data['text'], self.import_params())
         miss_count = 0
         correct_count = 0
 
@@ -146,13 +174,13 @@ class SentimentAnalysisModel:
 
         accuracy = correct_count * 100 / len(self.test_data)
 
-        logging.info(f'Model accuracy is: {accuracy}%')
         return accuracy
 
 
 def main() -> None:
-    model = SentimentAnalysisModel('model.json')
+    model = SentimentAnalysisModel(os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__), 'model.json')))
     model.train()
+    print(model.evaluate())
 
 
 if __name__ == '__main__':
