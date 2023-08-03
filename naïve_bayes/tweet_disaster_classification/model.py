@@ -66,6 +66,7 @@ class NaiveBayesModel:
     def export_parameters_to_json(self, class_freq_path: str, words_freq_path: str) -> None:
         """
         Export current model parameters to .json files.
+
         :param class_freq_path: the path to the .json file to store the dictionary with class frequencies.
         :param words_freq_path: the path to the .json file to store the dictionary with frequencies for each word.
         """
