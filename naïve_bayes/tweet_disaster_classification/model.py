@@ -1,5 +1,6 @@
 """Naive Bayes model which predicts whether the tweet is about disastrous events based on its text."""
 import json
+import sys
 
 import pandas as pd
 
@@ -77,18 +78,20 @@ class NaiveBayesModel:
                 file.write(json_class_freq)
         except FileNotFoundError:
             print('File not found. Export terminated.')
-            return
+            sys.exit(1)
         except OSError:
             print('Error opening the file. Export terminated.')
+            sys.exit(1)
 
         try:
             with open(words_freq_path, mode='w', encoding='utf-8') as file:
                 file.write(json_freq_dict)
         except FileNotFoundError:
             print('File not found. Export terminated.')
-            return
+            sys.exit(1)
         except OSError:
             print('Error opening the file. Export terminated.')
+            sys.exit(1)
 
     def import_parameters(self, class_freq_path: str, words_freq_path: str) -> None:
         """
@@ -101,15 +104,25 @@ class NaiveBayesModel:
                 self.class_freq = json.loads(file.read())
         except FileNotFoundError:
             print('File not found. Import terminated.')
-            return
+            sys.exit(1)
         except OSError:
             print('Error opening the file. Import terminated.')
+            sys.exit(1)
 
         try:
             with json.open(words_freq_path, mode='r', encoding='utf-8') as file:
                 self.freq_dict = json.loads(file.read())
         except FileNotFoundError:
             print('File not found. Import terminated.')
-            return
+            sys.exit(1)
         except OSError:
             print('Error opening the file. Import terminated.')
+            sys.exit(1)
+
+
+def main():
+    pass
+
+
+if __name__ == '__main__':
+    main()
