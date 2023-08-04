@@ -1,22 +1,22 @@
 """Train tweet sentiment analysis model."""
+import argparse
 import json
 import logging
 import os
 import sys
-from zipfile import ZipFile
-
-from kaggle.api.kaggle_api_extended import KaggleApi
 
 import pandas as pd
 
 from typing import Tuple, Dict
+
+from naïve_bayes.data_downloader import DataHandler
 from naïve_bayes.text_formatter import TweetTextFormatter
 
 
 class SentimentAnalysisModel:
     """Naïve bayes sentiment analysis model"""
 
-    def __init__(self, file_path):
+    def __init__(self, file_path: str) -> None:
         """
         Model initialization and preprocess dataset.
 
@@ -30,26 +30,23 @@ class SentimentAnalysisModel:
         self.train_data, self.test_data = self._preprocess_data()
 
     @staticmethod
-    def _download_dataset():
-        dataset_path = 'naïve_bayes/datasets'
+    def _read_dataset() -> pd.DataFrame:
+        """
+        Read dataset, if not exists - download it.
+
+        :return: Dataset dataframe
+        """
+        dataset_path = os.path.normpath('naïve_bayes/datasets/training.1600000.processed.noemoticon.csv')
 
         if not os.path.exists(dataset_path):
-            os.mkdir(dataset_path)
+            data_handler = DataHandler()
+            api = data_handler.kaggle_authenticate()
+            data_handler.download_kaggle_dataset(api, 'kazanova/sentiment140')
+            data_handler.extract_dataset('sentiment140.zip', 'naïve_bayes/datasets/')
 
-        api = KaggleApi()
-        api.authenticate()
-        api.dataset_download_files('kazanova/sentiment140')
-        zf = ZipFile('sentiment140.zip')
-        zf.extractall(path='naïve_bayes/datasets/')
-        zf.close()
-
-    def _read_dataset(self) -> pd.DataFrame:
-        try:
-            data = pd.read_csv(os.path.normpath('naïve_bayes/datasets/training.1600000.processed.noemoticon.csv'),
-                               encoding='latin-1', names=['sentiment', 'id', 'date', 'flag', 'user', 'text'])
-        except FileNotFoundError:
-            self._download_dataset()
-            data = self._read_dataset()
+        data = pd.read_csv(dataset_path,
+                           encoding='latin-1',
+                           names=['sentiment', 'id', 'date', 'flag', 'user', 'text'])
 
         return data
 
@@ -69,7 +66,7 @@ class SentimentAnalysisModel:
         return train_data, test_data
 
     @staticmethod
-    def count_tweets(data_frame):
+    def count_tweets(data_frame: pd.DataFrame) -> Dict[str, Dict[int, int]]:
         """Count word frequency per each class."""
         freqs_counts = {}
 
@@ -177,8 +174,19 @@ class SentimentAnalysisModel:
         return accuracy
 
 
+def parse_args() -> argparse.Namespace:
+    """Parse script arguments."""
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--param_path', '-pp',
+                        nargs='?', help='Path to file where to save model\'s parameters', required=True)
+
+    return parser.parse_args()
+
+
 def main() -> None:
-    model = SentimentAnalysisModel(os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__), 'model.json')))
+    """Train Sentiment Analysis model, save parameters and evaluate it on testset."""
+    args = parse_args()
+    model = SentimentAnalysisModel(args.param_path)
     model.train()
     print(model.evaluate())
 
