@@ -29,7 +29,6 @@ def tweet_model() -> None:
         text = pd.Series(text)
         prediction_sentiment = sentiment_analysis_model.predict(text, parameters)
 
-
         disaster_classification_model = NaiveBayesModel()
         disaster_classification_model.import_parameters('class_freq.json', 'words_freq.json')
         prediction_disaster = disaster_classification_model.predict(text)
