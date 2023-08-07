@@ -46,20 +46,19 @@ class NaiveBayesModel:
         a pd.Series with predictions for text samples with the corresponding index.
         :param text_samples: pd.Series with tweet texts for prediction.
         """
-
         if not isinstance(text_samples, pd.Series):
             text_samples = pd.Series(text_samples)
 
         predictions = []
 
-        for _, text in text_samples:
-            prob_dict = {0: 1.0, 1: 1.0}
-            for word in text:
+        for text in text_samples:
+            prob_dict = {'0': 1.0, '1': 1.0}
+            for word in text.split(' '):
                 if word in self.freq_dict:
-                    for i in [0, 1]:
+                    for i in ['0', '1']:
                         prob_dict[i] *= self.freq_dict[word][i] / self.class_freq[i]
 
-            for i in [0, 1]:
+            for i in ['0', '1']:
                 prob_dict[i] *= self.class_freq[i]
 
             predictions.append(max(prob_dict, key=prob_dict.get))
