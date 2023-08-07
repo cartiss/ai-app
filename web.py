@@ -1,11 +1,7 @@
 """Run Flask application."""
 
 from flask import Flask, render_template, request
-
-import pandas as pd
-
-from naïve_bayes.sentiment_analysis.model import SentimentAnalysisModel
-from naïve_bayes.tweet_disaster_classification.model import NaiveBayesModel
+from service_functions import make_sentiment_prediction, make_disaster_prediction, compile_results
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'iejowda32msflsn3dkf7jnad9mk1lpd'
@@ -22,26 +18,11 @@ def tweet_model() -> None:
     """Render tweet model page."""
     if request.method == 'POST':
         text = request.form['tweet']
-        results = []
 
-        sentiment_analysis_model = SentimentAnalysisModel('naïve_bayes/sentiment_analysis/model.json')
-        parameters = sentiment_analysis_model.import_params()
-        text = pd.Series(text)
-        prediction_sentiment = sentiment_analysis_model.predict(text, parameters)
+        prediction_sentiment = make_sentiment_prediction(text)
+        prediction_disaster = make_disaster_prediction(text)
 
-        disaster_classification_model = NaiveBayesModel()
-        disaster_classification_model.import_parameters('class_freq.json', 'words_freq.json')
-        prediction_disaster = disaster_classification_model.predict(text)
-
-        if prediction_sentiment[0] == 1:
-            results.append("This tweet is positive.")
-        else:
-            results.append("This tweet is negative.")
-
-        if prediction_disaster[0] == 1:
-            results.append("This tweet is about disaster.")
-        else:
-            results.append("This tweet is not about disaster.")
+        results = compile_results(prediction_sentiment, prediction_disaster)
 
         return render_template('tweet_model.html', title="Tweet Model", results=results)
 
