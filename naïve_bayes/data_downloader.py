@@ -1,15 +1,14 @@
 import os
 from zipfile import ZipFile
 
-from kaggle.api.kaggle_api_extended import KaggleApi
-
 
 class DataHandler:
     """Data Handler."""
 
     @staticmethod
-    def kaggle_authenticate() -> KaggleApi:
+    def kaggle_authenticate():
         """Authenticate to Kaggle API."""
+        from kaggle.api.kaggle_api_extended import KaggleApi
         api = KaggleApi()
         api.authenticate()
 
@@ -32,7 +31,7 @@ class DataHandler:
         zf.close()
 
     @staticmethod
-    def download_kaggle_dataset(kaggle_api: KaggleApi, dataset_id: str) -> None:
+    def download_kaggle_dataset(kaggle_api, dataset_id: str) -> None:
         """
         Download and extract Kaggle dataset by ID.
 
@@ -42,7 +41,7 @@ class DataHandler:
         kaggle_api.dataset_download_files(dataset_id)
 
     @staticmethod
-    def download_kaggle_competition(kaggle_api: KaggleApi, competition_id: str) -> None:
+    def download_kaggle_competition(kaggle_api, competition_id: str) -> None:
         """
         Download and extract Kaggle competition data by competition ID.
 

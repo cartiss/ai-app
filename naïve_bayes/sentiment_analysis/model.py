@@ -27,8 +27,6 @@ class SentimentAnalysisModel:
         self.text_formatter = TweetTextFormatter()
         self.file_path = file_path
 
-        self.train_data, self.test_data = self._preprocess_data()
-
     @staticmethod
     def _read_dataset() -> pd.DataFrame:
         """
@@ -50,7 +48,7 @@ class SentimentAnalysisModel:
 
         return data
 
-    def _preprocess_data(self) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    def preprocess_data(self) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """Preprocess dataset before training."""
         data = self._read_dataset()
 
@@ -60,10 +58,8 @@ class SentimentAnalysisModel:
 
         data['text'] = self.text_formatter.process_text(data['text'])
 
-        test_data = data[:200000]
-        train_data = data[200000:]
-
-        return train_data, test_data
+        self.test_data = data[:200000]
+        self.train_data = data[200000:]
 
     @staticmethod
     def count_tweets(data_frame: pd.DataFrame) -> Dict[str, Dict[int, int]]:
@@ -187,6 +183,7 @@ def main() -> None:
     """Train Sentiment Analysis model, save parameters and evaluate it on testset."""
     args = parse_args()
     model = SentimentAnalysisModel(args.param_path)
+    model.preprocess_data()
     model.train()
     print(model.evaluate())
 
