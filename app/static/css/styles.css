@@ -140,6 +140,7 @@ $colors: #E74C3C, #0072B5, #2C3E50;
     width: 600px;
     margin: 0 auto 100px;
     padding: 45px;
+    height: 350px;
     text-align: center;
 
 }
@@ -199,4 +200,23 @@ $colors: #E74C3C, #0072B5, #2C3E50;
 
 .menu_item {
     margin-left: 50px;
+}
+
+.results h3{
+    margin: 10px 30px 30px 30px;
+    padding: 10px 30px 30px 30px;
+}
+
+.results {
+    display: flex;
+    justify-content: space-around;
+}
+
+.text-green {
+    color: #1abc9c;
+}
+
+.results_header {
+    display: flex;
+    justify-content: center;
 }

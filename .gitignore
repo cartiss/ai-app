@@ -164,3 +164,7 @@ env/
 venv/
 virtualenv/
 animals_classification/dataset
+naïve_bayes/datasets
+*.zip
+*.tg
+*.tgz
