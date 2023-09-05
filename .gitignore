@@ -164,6 +164,7 @@ env/
 venv/
 virtualenv/
 animals_classification/dataset
+license_plate_detection/dataset
 naïve_bayes/datasets
 *.zip
 *.tg
