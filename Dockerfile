@@ -24,6 +24,3 @@ RUN poetry install --no-root --no-dev --no-cache
 
 # Run your app
 COPY . /app
-CMD ["poetry", "run", "python", "./app/web.py"]
-
-

@@ -1,3 +1,4 @@
+import logging
 from typing import List
 
 import pandas as pd
@@ -49,5 +50,7 @@ def compile_results(prediction_sentiment, prediction_disaster) -> List[str]:
         results.append("This tweet is about disaster.")
     else:
         results.append("This tweet is not about disaster.")
+
+    logging.error(results)
 
     return results

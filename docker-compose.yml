@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: poetry run python ./app/web.py
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/app
