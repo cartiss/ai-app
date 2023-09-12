@@ -9,8 +9,8 @@ import pandas as pd
 
 from typing import Tuple, Dict
 
-from naïve_bayes.data_downloader import DataHandler
-from naïve_bayes.text_formatter import TweetTextFormatter
+from utils.data_downloader import DataHandler
+from utils.text_formatter import TweetTextFormatter
 
 
 class SentimentAnalysisModel:
