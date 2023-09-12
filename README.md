@@ -5,11 +5,11 @@
 </div>
 
 <br>
-This is a website based on Flask used for hosting our AI models and implementing the full life cycle for them.
+<p>This is a website based on Flask used for hosting our AI models and implementing the full life cycle for them.</p>
 
-We've created different models from NLP (Natural Language Processing) and CV (Computer Vision) fields. A list of them you can see below.
+<p>We've created different models from NLP (Natural Language Processing) and CV (Computer Vision) fields. A list of them you can see below.</p>
 
-Each model has a detail page where user can interact with the model using their own data. 
+<p>Each model has a detail page where user can interact with the model using their own data. </p>
 <a href="https://www.google.com">Try it by your own!</a>
 
 ### List of models
