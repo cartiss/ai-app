@@ -6,7 +6,7 @@ from naïve_bayes.data_downloader import DataHandler
 
 class LicensePlateDetectionModel:
     def __init__(self):
-        pass
+        self.DATASET_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dataset')
 
     @staticmethod
     def download_dataset():
@@ -14,10 +14,11 @@ class LicensePlateDetectionModel:
         kaggle_api = handler.kaggle_authenticate()
         handler.download_kaggle_dataset(kaggle_api, 'andrewmvd/car-plate-detection')
         handler.extract_dataset('car-plate-detection.zip',
-                                os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dataset'))
+                                self.DATASET_FOLDER)
 
     def train(self):
-        self.download_dataset()
+        if not os.path.exists(self.PATH_TO_DATASET):
+            self.download_dataset()
 
     def evaluate(self):
         pass
