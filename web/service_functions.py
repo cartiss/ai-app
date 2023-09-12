@@ -12,7 +12,7 @@ def make_sentiment_prediction(text) -> pd.Series:
     :param text: tweet entered by the user
     :return: pd.Series of predictions
     """
-    sentiment_analysis_model = SentimentAnalysisModel('naïve_bayes/sentiment_analysis/model.json')
+    sentiment_analysis_model = SentimentAnalysisModel('trained_models/sentiment_analysis/model.json')
     parameters = sentiment_analysis_model.import_params()
     text = pd.Series(text)
     return sentiment_analysis_model.predict(text, parameters)
