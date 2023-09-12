@@ -2,25 +2,42 @@
 
 {% block content %}
     {{ super() }}
-    <div class="dropdownes_container">
-        <dropdown>
-            <input id="toggle1" type="checkbox">
-            <label for="toggle1" class="animate">NLP<i class="fa fa-list float-right"></i></label>
-            <ul class="animate">
-                <li class="animate"><a href="{{ url_for('tweet_model') }}">Tweet model</a><i class="fa fa-code float-right"></i></li>
-                <li class="animate"><a href="#">second</a><i class="fa fa-arrows-alt float-right"></i></li>
-                <li class="animate"><a href="#">third</a><i class="fa fa-cog float-right"></i></li>
-            </ul>
-        </dropdown>
 
-        <dropdown>
-            <input id="toggle2" type="checkbox">
-            <label for="toggle2" class="animate">CNN<i class="fa fa-list float-right"></i></label>
-            <ul class="animate">
-                <li class="animate"><a href="#">first</a><i class="fa fa-code float-right"></i></li>
-                <li class="animate"><a href="#">second</a><i class="fa fa-arrows-alt float-right"></i></li>
-                <li class="animate"><a href="#">third</a><i class="fa fa-cog float-right"></i></li>
+<ul>
+    {% for project in projects %}
+        <li>
+            <img src="{{ url_for('static', filename=project.image_url) }}">
+            <h2>{{ project.name }}</h2>
+            <ul>
+                {% for tag in project.tags %}
+                    <li>{{ tag.name }}</li>
+                {% endfor %}
             </ul>
-        </dropdown>
-    </div>
+            <p>{{ project.description }}</p>
+            <a href="{{ project.url }}">Докладніше</a>
+        </li>
+    {% endfor %}
+</ul>
+
+<!--    <div class="dropdownes_container">-->
+<!--        <dropdown>-->
+<!--            <input id="toggle1" type="checkbox">-->
+<!--            <label for="toggle1" class="animate">NLP<i class="fa fa-list float-right"></i></label>-->
+<!--            <ul class="animate">-->
+<!--                <li class="animate"><a href="{{ url_for('tweet_model') }}">Tweet model</a><i class="fa fa-code float-right"></i></li>-->
+<!--                <li class="animate"><a href="#">second</a><i class="fa fa-arrows-alt float-right"></i></li>-->
+<!--                <li class="animate"><a href="#">third</a><i class="fa fa-cog float-right"></i></li>-->
+<!--            </ul>-->
+<!--        </dropdown>-->
+
+<!--        <dropdown>-->
+<!--            <input id="toggle2" type="checkbox">-->
+<!--            <label for="toggle2" class="animate">CNN<i class="fa fa-list float-right"></i></label>-->
+<!--            <ul class="animate">-->
+<!--                <li class="animate"><a href="#">first</a><i class="fa fa-code float-right"></i></li>-->
+<!--                <li class="animate"><a href="#">second</a><i class="fa fa-arrows-alt float-right"></i></li>-->
+<!--                <li class="animate"><a href="#">third</a><i class="fa fa-cog float-right"></i></li>-->
+<!--            </ul>-->
+<!--        </dropdown>-->
+<!--    </div>-->
 {% endblock %}
