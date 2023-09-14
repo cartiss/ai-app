@@ -168,5 +168,6 @@ naïve_bayes/datasets
 *.zip
 *.tg
 *.tgz
-app/seed.py
+/web/seed.py
 .env_file
+!/web/seed.py

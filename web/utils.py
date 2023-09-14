@@ -2,8 +2,8 @@ import logging
 from typing import List
 
 import pandas as pd
-# from naïve_bayes.sentiment_analysis.model import SentimentAnalysisModel
-# from naïve_bayes.tweet_disaster_classification.model import NaiveBayesModel
+from naïve_bayes.sentiment_analysis.model import SentimentAnalysisModel
+from naïve_bayes.tweet_disaster_classification.model import NaiveBayesModel
 from models import db, Project, Category
 
 
