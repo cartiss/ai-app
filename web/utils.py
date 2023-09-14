@@ -56,6 +56,7 @@ def compile_results(prediction_sentiment, prediction_disaster) -> List[str]:
 
     return results
 
+
 def make_homepage_queryset() -> dict:
     """
         Make queryset of categories and their projects.
@@ -73,6 +74,7 @@ def make_homepage_queryset() -> dict:
 
     return category_project_dict
 
+
 def make_category_projects_queryset(category_name):
     """
         Make queryset of category and projects of this category.
@@ -89,8 +91,6 @@ def make_category_projects_queryset(category_name):
         return None, []
 
 
-
-
 def prepare_category_name(category_name) -> str:
     """
         Format the name of category.
@@ -102,17 +102,3 @@ def prepare_category_name(category_name) -> str:
         return category_name.upper()
     else:
         return category_name.capitalize()
-
-
-# def make_vision_projects_queryset(category_name):
-#     category = Category.query.filter_by(name='Vision').first()
-#     projects = Project.query.filter_by(category_id=category.id).all()
-#
-#     return category, projects
-#
-# def make_tabular_projects_queryset(category_name):
-#     res = prepare_category_name(category_name)
-#     category = Category.query.filter_by(name='Vision').first()
-#     projects = Project.query.filter_by(category_id=category.id).all()
-#
-#     return category, projects

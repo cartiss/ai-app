@@ -22,6 +22,6 @@ jobs:
       - name: Install Poetry
         run: curl -sSL https://install.python-poetry.org | python - && export poetry=~/.local/share/pypoetry/venv/bin/poetry
       - name: Install dependencies
-        run: poetry install --no-root
+        run: make install_dependencies
       - name: Check ${{ matrix.build_target }}
-        run: poetry run ${{ matrix.build_target }} .
+        run: make ${{ matrix.build_target }}

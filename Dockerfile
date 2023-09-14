@@ -16,11 +16,12 @@ RUN python3 -m venv $POETRY_VENV \
 # Add `poetry` to PATH
 ENV PATH="${PATH}:${POETRY_VENV}/bin"
 
-WORKDIR /app
+WORKDIR .
 
 # Install dependencies
-COPY poetry.lock pyproject.toml ./
-RUN poetry install --no-root --no-dev
+COPY . .
+RUN make install_dependencies
 
 # Run your app
-COPY . /app
+CMD ["make", "run_web"]
+
