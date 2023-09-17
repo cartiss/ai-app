@@ -92,7 +92,8 @@ class AnimalsClassificationModel:
         self.model = models.Sequential([
             base_model,
             layers.Flatten(),
-            layers.Dense(256, activation='relu'),
+            layers.Dense(512, activation='relu'),
+            layers.Dense(512, activation='relu'),
             layers.Dense(256, activation='relu'),
             layers.Dense(5)
         ])
@@ -103,7 +104,7 @@ class AnimalsClassificationModel:
             metrics=['accuracy']
         )
 
-        self.model.fit(train_x, train_y, epochs=epochs, validation_split=0.3, batch_size=32, shuffle=True)
+        self.model.fit(train_x, train_y, epochs=epochs, validation_split=0.2, batch_size=16, shuffle=True)
 
         self.save_model('animals_model')
 
@@ -265,7 +266,7 @@ def main() -> None:
     """Train Animals classification model."""
     image_size = (299, 299, 3)
     model = AnimalsClassificationModel(image_size)
-    model.train(1)
+    model.train(5)
     model.save_model('animals_classification/animals_model')
 
     predictor = Predictor('animals_model', image_size)
