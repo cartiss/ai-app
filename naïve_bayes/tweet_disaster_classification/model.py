@@ -5,8 +5,8 @@ import sys
 
 import pandas as pd
 
-from naïve_bayes.data_downloader import DataHandler
-from naïve_bayes.text_formatter import TweetTextFormatter
+from utils.data_downloader import DataHandler
+from utils.text_formatter import TweetTextFormatter
 
 
 class NaiveBayesModel:
@@ -96,10 +96,10 @@ class NaiveBayesModel:
         json_class_freq = json.dumps(self.class_freq)
 
         try:
-            with open(os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__), class_freq_path)),
+            with open(os.path.join('trained_models', 'tweet_disaster_classification', class_freq_path),
                       mode='w', encoding='utf-8') as file:
                 file.write(json_class_freq)
-            with open(os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__), words_freq_path)),
+            with open(os.path.join('trained_models', 'tweet_disaster_classification', words_freq_path),
                       mode='w', encoding='utf-8') as file:
                 file.write(json_freq_dict)
         except FileNotFoundError:
@@ -117,10 +117,10 @@ class NaiveBayesModel:
         :param words_freq_path: the path to the .json file with the dictionary with frequencies for each word.
         """
         try:
-            with open(os.path.join('naïve_bayes', 'tweet_disaster_classification', class_freq_path),
+            with open(os.path.join('trained_models', 'tweet_disaster_classification', class_freq_path),
                       mode='r', encoding='utf-8') as file:
                 self.class_freq = json.loads(file.read())
-            with open(os.path.join('naïve_bayes', 'tweet_disaster_classification', words_freq_path),
+            with open(os.path.join('trained_models', 'tweet_disaster_classification', words_freq_path),
                       mode='r', encoding='utf-8') as file:
                 self.freq_dict = json.loads(file.read())
         except FileNotFoundError:
