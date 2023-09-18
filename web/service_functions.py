@@ -1,8 +1,8 @@
 from typing import List
 
 import pandas as pd
-from naïve_bayes.sentiment_analysis.model import SentimentAnalysisModel
-from naïve_bayes.tweet_disaster_classification.model import NaiveBayesModel
+from naive_bayes.sentiment_analysis.model import SentimentAnalysisModel
+from naive_bayes.tweet_disaster_classification.model import NaiveBayesModel
 
 
 def make_sentiment_prediction(text) -> pd.Series:

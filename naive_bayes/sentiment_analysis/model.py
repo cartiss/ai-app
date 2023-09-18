@@ -34,13 +34,13 @@ class SentimentAnalysisModel:
 
         :return: Dataset dataframe
         """
-        dataset_path = os.path.normpath('naïve_bayes/datasets/training.1600000.processed.noemoticon.csv')
+        dataset_path = os.path.normpath('naive_bayes/datasets/training.1600000.processed.noemoticon.csv')
 
         if not os.path.exists(dataset_path):
             data_handler = DataHandler()
             api = data_handler.kaggle_authenticate()
             data_handler.download_kaggle_dataset(api, 'kazanova/sentiment140')
-            data_handler.extract_dataset('sentiment140.zip', 'naïve_bayes/datasets/')
+            data_handler.extract_dataset('sentiment140.zip', 'naive_bayes/datasets/')
 
         data = pd.read_csv(dataset_path,
                            encoding='latin-1',
