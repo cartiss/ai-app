@@ -1,8 +1,13 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
+from decouple import config
+
+db_user = config('SQL_USER')
+db_password = config('SQL_PASSWORD')
+db_name = config('SQL_DB')
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://ai_db_user:Hgyfshbjs8482@localhost/aiprojectsdb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{}:{}@db/{}'.format(db_user, db_password, db_name)
 db = SQLAlchemy(app)
 
 

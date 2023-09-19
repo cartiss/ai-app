@@ -1,11 +1,19 @@
 """Run Flask application."""
+import pathlib
+import sys
+from decouple import config
+
 from flask import render_template, request
 
-from utils import make_sentiment_prediction, make_disaster_prediction, compile_results, make_homepage_queryset, \
+PARENT_FOLDER = str(pathlib.Path(__file__).parent.parent.absolute())
+sys.path.insert(0, PARENT_FOLDER)
+# flake8: noqa
+from logic import make_sentiment_prediction, make_disaster_prediction, compile_results, make_homepage_queryset, \
     make_category_projects_queryset
+# flake8: noqa
 from models import db, app
 
-app.config['SECRET_KEY'] = 'iejowda32msflsn3dkf7jnad9mk1lpd'
+app.config['SECRET_KEY'] = config('SECRET_KEY')
 app.config['UPLOAD_FOLDER'] = 'static'
 
 
