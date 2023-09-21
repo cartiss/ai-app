@@ -1,5 +1,5 @@
 import logging
-from typing import List
+from typing import List, Tuple, Optional
 
 import pandas as pd
 from naïve_bayes.sentiment_analysis.model import SentimentAnalysisModel
@@ -59,9 +59,9 @@ def compile_results(prediction_sentiment, prediction_disaster) -> List[str]:
 
 def make_homepage_queryset() -> dict:
     """
-        Make queryset of categories and their projects.
+    Make queryset of categories and their projects.
 
-        :return: dict with categories and their projects
+    :return: dict with categories and their projects
     """
     categories_and_projects = db.session.query(Category, Project).join(Project,
                                                                        Category.id == Project.category_id).all()
@@ -75,12 +75,12 @@ def make_homepage_queryset() -> dict:
     return category_project_dict
 
 
-def make_category_projects_queryset(category_name):
+def make_category_projects_queryset(category_name) -> Tuple[Optional['Category'], List['Project']]:
     """
-        Make queryset of category and projects of this category.
+    Make queryset of category and projects of this category.
 
-        :param category_name: str with name of category
-        :return: Category object and list of projects
+    :param category_name: str with name of category
+    :return: Category object and list of projects
     """
     prepared_category_name = prepare_category_name(category_name)
     category = Category.query.filter_by(name=str(prepared_category_name)).first()
@@ -93,10 +93,10 @@ def make_category_projects_queryset(category_name):
 
 def prepare_category_name(category_name) -> str:
     """
-        Format the name of category.
+    Format the name of category.
 
-        :param category_name: str with name of category
-        :return: formatted str
+    :param category_name: str with name of category
+    :return: formatted str
     """
     if len(category_name) == 3:
         return category_name.upper()

@@ -1,5 +1,5 @@
 [flake8]
-exclude = .git,__pycache__,docs/source/conf.py,old,build,dist,env,venv,virtualenv,web/seed.py
+exclude = .git,__pycache__,docs/source/conf.py,old,build,dist,env,venv,virtualenv
 count = True
 statistics = True
 show_source = True
