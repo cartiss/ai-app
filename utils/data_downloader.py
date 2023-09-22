@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 from zipfile import ZipFile
 
 
@@ -15,17 +15,17 @@ class DataHandler:
         return api
 
     @staticmethod
-    def extract_dataset(archive_name: str, dataset_path: str) -> None:
+    def extract_dataset(archive_name: str, dataset_path: Path) -> None:
         """
         Extract dataset archive.
 
-        :param archive_name: Name of archive
-        :param dataset_path: Path to dataset folder where to extract
+        :param archive_name: Archive name
+        :param dataset_path: Path to the folder to extract the dataset into
         """
         zf = ZipFile(archive_name)
 
-        if not os.path.exists(dataset_path):
-            os.makedirs(dataset_path)
+        if not dataset_path.is_dir():
+            Path.mk_dir(dataset_path)
 
         zf.extractall(path=dataset_path)
         zf.close()
