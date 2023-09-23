@@ -7,11 +7,20 @@ from flask import render_template, request
 
 PARENT_FOLDER = str(pathlib.Path(__file__).parent.parent.absolute())
 sys.path.insert(0, PARENT_FOLDER)
+
 # flake8: noqa
 from logic import make_sentiment_prediction, make_disaster_prediction, compile_results, make_homepage_queryset, \
     make_category_projects_queryset
 # flake8: noqa
 from models import db, app
+from naïve_bayes.sentiment_analysis.model import SentimentAnalysisModel
+from naïve_bayes.tweet_disaster_classification.model import NaiveBayesModel
+
+sentiment_analysis_model = SentimentAnalysisModel('trained_models/sentiment_analysis/model.json')
+parameters = sentiment_analysis_model.import_params()
+
+disaster_classification_model = NaiveBayesModel()
+disaster_classification_model.import_parameters('class_freq.json', 'words_freq.json')
 
 app.config['SECRET_KEY'] = config('SECRET_KEY')
 app.config['UPLOAD_FOLDER'] = 'static'
@@ -38,8 +47,8 @@ def tweet_model() -> str:
     """Render tweet model page."""
     if request.method == 'POST':
         text = request.form['tweet']
-        prediction_sentiment = make_sentiment_prediction(text)
-        prediction_disaster = make_disaster_prediction(text)
+        prediction_sentiment = make_sentiment_prediction(text, sentiment_analysis_model, parameters)
+        prediction_disaster = make_disaster_prediction(text, disaster_classification_model)
 
         results = compile_results(prediction_sentiment, prediction_disaster)
 
