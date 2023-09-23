@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Poetry environment for AI application"
 authors = ["Kyryl Fesiuk <kirill.fesiuk@gmail.com>"]
 readme = "README.md"
-packages = [{include = "poetry_ai"}]
+
 
 [tool.poetry.dependencies]
 python = ">=3.9, <3.12"
@@ -14,10 +14,14 @@ tensorflow-io-gcs-filesystem = "0.31.0"
 tensorflow = "^2.13.0"
 opencv-python = "^4.8.0.74"
 flask = "^2.3.2"
+flask-sqlalchemy = "3.0.5"
+psycopg2 = "^2.9.7"
 pandas = "^2.0.3"
 contractions = "^0.1.73"
 nltk = "^3.8.1"
 kaggle = "^1.5.16"
+python-decouple = "^3.8"
+pathlib = "^1.0.1"
 
 [build-system]
 requires = ["poetry-core"]

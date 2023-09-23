@@ -5,6 +5,8 @@ ENV POETRY_VERSION=1.5.1
 ENV POETRY_HOME=/opt/poetry
 ENV POETRY_VENV=/opt/poetry-venv
 ENV POETRY_CACHE_DIR=/opt/.cache
+ENV PYTHONPATH "${PYTHONPATH}:/web"
+
 
 # Install poetry separated from system interpreter
 RUN python3 -m venv $POETRY_VENV \
@@ -19,6 +21,3 @@ WORKDIR .
 # Install dependencies
 COPY . .
 RUN make install_dependencies
-
-# Run your app
-CMD ["make", "run_web"]

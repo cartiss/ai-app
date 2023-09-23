@@ -120,7 +120,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+#.env
 .venv
 env/
 venv/
@@ -168,3 +168,6 @@ naïve_bayes/datasets
 *.zip
 *.tg
 *.tgz
+web/seed.py
+!/web/seed.py
+seed.py
