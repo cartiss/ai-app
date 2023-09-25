@@ -29,11 +29,11 @@ class DataLoader:
         DataHandler.download_kaggle_dataset(api, dataset_id=dataset_id)
         if not path.is_dir():
             Path.mkdir(path)
-        DataHandler.extract_dataset(archive_name='weather_dataset', dataset_path=path)
+        DataHandler.extract_dataset(archive_name='weather-dataset.zip', dataset_path='')
 
     @staticmethod
     def load_dataset_to_tf_format(
-            data_storage_path: str = 'data',
+            data_storage_path: str = './data',
             subset: str = None,
             label_mode: str = 'inferred',
             color_mode: str = 'rgb',
@@ -92,4 +92,4 @@ class DataLoader:
 
 
 if __name__ == '__main__':
-    DataLoader.load_dataset()
+    DataLoader.download_img_dataset('./data', 'jehanbhathena/weather-dataset')
