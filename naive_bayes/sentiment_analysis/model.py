@@ -9,7 +9,7 @@ import pandas as pd
 
 from typing import Tuple, Dict
 
-from utils.data_downloader import DataHandler
+from utils.data_processing.downloader import DataHandler
 from utils.text_formatter import TweetTextFormatter
 
 
@@ -36,11 +36,10 @@ class SentimentAnalysisModel:
         """
         dataset_path = os.path.normpath('naive_bayes/datasets/training.1600000.processed.noemoticon.csv')
 
-        if not os.path.exists(dataset_path):
-            data_handler = DataHandler()
-            api = data_handler.kaggle_authenticate()
-            data_handler.download_kaggle_dataset(api, 'kazanova/sentiment140')
-            data_handler.extract_dataset('sentiment140.zip', 'naive_bayes/datasets/')
+        data_handler = DataHandler()
+        data_handler.download_kaggle_dataset(kaggle_id='kazanova/sentiment140',
+                                             archive_name='sentiment140.zip',
+                                             extract_path='naive_bayes/datasets/')
 
         data = pd.read_csv(dataset_path,
                            encoding='latin-1',

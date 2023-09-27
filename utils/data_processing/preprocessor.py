@@ -5,20 +5,7 @@ from typing import Tuple
 
 
 class ImageDataPreprocessor:
-    """"""
-
-    @staticmethod
-    def batch_dataset(data: Dataset, batch_size: int) -> Dataset:
-        """
-        Batches a tf.data.Dataset object and returns the batched copy of it
-
-        :param data: tf.data.Dataset to batch
-        :param batch_size: batch size
-        :return: batched copy of data Dataset
-        """
-        batched_dataset = data.batch(batch_size=batch_size)
-        return batched_dataset
-
+    """Image data preprocessor."""
 
     @staticmethod
     def split_dataset(
@@ -43,11 +30,14 @@ class ImageDataPreprocessor:
         """
         if not test_split:
             test_split = 0.0
+
         if not val_split:
             val_split = 1.0 - train_split - test_split
+
         for i in (train_split, val_split, test_split):
             if i < 0 or i > 1:
                 raise ValueError('All split sizes must be in range [0; 1] if specified')
+
         if test_split + val_split + train_split != 1:
             raise ValueError('The total size of splits must add up to 1.')
 
@@ -60,8 +50,7 @@ class ImageDataPreprocessor:
 
         return train_ds, val_ds, test_ds
 
+    # TODO: augment_underrepresented_classes()
     # @staticmethod
-    # def augment_underrepresented_classes(
-    #         data: Dataset,
-    #
-    # ):
+    # def augment_underrepresented_classes(data: Dataset):
+    #     pass
