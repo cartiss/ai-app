@@ -164,10 +164,11 @@ env/
 venv/
 virtualenv/
 animals_classification/dataset
-naïve_bayes/datasets
+naive_bayes/datasets
 *.zip
 *.tg
 *.tgz
+poetry.lock
 web/seed.py
 !/web/seed.py
 seed.py

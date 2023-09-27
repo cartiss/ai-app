@@ -16,8 +16,8 @@
 
 #### NLP:
 
-- [*Tweet sentiment analysis*](/naïve_bayes/sentiment_analysis)
-- [*Tweet disaster classification*](/naïve_bayes/tweet_disaster_classification)
+- [*Tweet sentiment analysis*](/naive_bayes/sentiment_analysis)
+- [*Tweet disaster classification*](/naive_bayes/tweet_disaster_classification)
 
 
 #### CV:
@@ -35,13 +35,13 @@ cd ai-app
 poetry install
 ```
 #### Choose model to train
-- [*Tweet sentiment analysis*](/naïve_bayes/sentiment_analysis) 
+- [*Tweet sentiment analysis*](/naive_bayes/sentiment_analysis) 
 
 ```
 make train_sentiment
 ```
 
-- [*Tweet disaster classification*](/naïve_bayes/tweet_disaster_classification)
+- [*Tweet disaster classification*](/naive_bayes/tweet_disaster_classification)
 
 ```
 make train_disaster
