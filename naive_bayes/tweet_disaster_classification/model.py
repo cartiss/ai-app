@@ -72,7 +72,7 @@ class NaiveBayesModel:
 
         :return: Dataset dataframe
         """
-        dataset_path = os.path.normpath('naïve_bayes/datasets/tweet_disaster/')
+        dataset_path = os.path.normpath('naive_bayes/datasets/tweet_disaster/')
 
         try:
             data = pd.read_csv(os.path.join(dataset_path, 'train.csv'), index_col='id')

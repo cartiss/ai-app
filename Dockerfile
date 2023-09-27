@@ -5,6 +5,8 @@ ENV POETRY_VERSION=1.5.1
 ENV POETRY_HOME=/opt/poetry
 ENV POETRY_VENV=/opt/poetry-venv
 ENV POETRY_CACHE_DIR=/opt/.cache
+ENV PYTHONPATH "${PYTHONPATH}:/web"
+
 
 # Install poetry separated from system interpreter
 RUN python3 -m venv $POETRY_VENV \
@@ -14,13 +16,8 @@ RUN python3 -m venv $POETRY_VENV \
 # Add `poetry` to PATH
 ENV PATH="${PATH}:${POETRY_VENV}/bin"
 
-WORKDIR /app
+WORKDIR .
 
 # Install dependencies
-COPY poetry.lock pyproject.toml ./
-RUN poetry install --no-root --no-dev --no-cache
-
-# Run your app
-COPY . /app
-CMD ["poetry", "run", "python", "web.py"]
-
+COPY . .
+RUN make install_dependencies

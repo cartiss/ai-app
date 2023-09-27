@@ -12,18 +12,25 @@
     {% endblock %}
     <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Nunito&display=swap" rel="stylesheet">
 </head>
 <body>
     {% block content -%}
         {%- block mainmenu -%}
             <div class="header">
 				<ul id="mainmenu" class="mainmenu">
-				    <li class="logo"><a href="{{ url_for('index') }}">AI Application</a></li>
-                    <li><a class="menu_item" href="#">MenuItem1</a></li>
-                    <li><a class="menu_item" href="#">MenuItem2</a></li>
-                    <li><a class="menu_item" href="#">MenuItem3</a></li>
-                    <li class="github"><a href="https://github.com/cartiss/ai-app">GitHub</a></li>
+<!--                    <li class="header-link"><a href="{{ url_for('index') }}">Home</a></li>-->
+                    <li class="same_width"></li>
+				    <div class="header-filters">
+                        <li class="header-link"><a href="{{ url_for('category_projects', category_name='Vision') }}">Vision</a></li>
+                        <li class="header-link"><a href="{{ url_for('category_projects', category_name='NLP') }}">NLP</a></li>
+                        <li class="header-link"><a href="{{ url_for('category_projects', category_name='Tabular') }}">Tabular</a></li>
+                    </div>
+                    <li class="header-link same_width"><a href="https://github.com/cartiss/ai-app">GitHub</a></li>
 				</ul>
+                <hr style="height:1px;border-width:0;color:#9f9f9f;background-color:#9f9f9f">
 			</div>
         {% endblock mainmenu -%}
     {% endblock -%}
