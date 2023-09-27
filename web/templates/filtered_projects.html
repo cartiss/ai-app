@@ -2,8 +2,8 @@
 
 {% block content %}
     {{ super() }}
-    {% for category, projects in category_project_dict.items() %}
-        <h1 class="h1-mainpage">{{ category.name|upper }}</h1>
+    {% if projects %}
+        <h1 class="h1-mainpage">{{ category.name|upper }} PROJECTS</h1>
         <div class="container">
             <ul>
                 {% for project in projects %}
@@ -25,5 +25,7 @@
                 {% endfor %}
             </ul>
         </div>
-    {% endfor %}
+    {% else %}
+        <h2>So far, we have no projects in this category :(</h2>
+    {% endif %}
 {% endblock %}
