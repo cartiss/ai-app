@@ -163,8 +163,8 @@ cython_debug/
 env/
 venv/
 virtualenv/
-animals_classification/dataset
-naive_bayes/datasets
+models/animals_classification/dataset
+models/naive_bayes/datasets
 *.zip
 *.tg
 *.tgz
