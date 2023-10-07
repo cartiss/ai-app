@@ -19,8 +19,8 @@ kaggle = "^1.5.16"
 python-decouple = "^3.8"
 pathlib = "^1.0.1"
 tensorflow-io-gcs-filesystem = "0.31.0"
-tensorflow = "2.13"
-tensorflow-intel = "2.13"
+tensorflow = "2.12"
+tensorflow-intel = "2.12"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^6.1.0"
