@@ -1,6 +1,9 @@
 install_dependencies:
 	poetry install --no-root
 
+install_dev_dependencies:
+	poetry install --no-root --dev
+
 run_web:
 	poetry run python web/web.py
 

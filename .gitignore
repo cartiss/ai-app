@@ -168,7 +168,6 @@ models/naive_bayes/datasets
 *.zip
 *.tg
 *.tgz
-poetry.lock
 web/seed.py
 !/web/seed.py
 seed.py
