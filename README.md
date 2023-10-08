@@ -1,16 +1,10 @@
-<div align="center">
-    <h1>AI project</h1>
-    <img alt="Demo screenshot" src="repo_conf/demo.jpg" width="400"/> 
-    <h3><a href="https://www.google.com">Live demo</a></h3>
-</div>
+<h1>AI Web Playground</h1>
 
-<br>
 <p>This is a Flask-based website for hosting our AI models and implementing the full model life cycle for them.</p>
 
 <p>We've created different models from NLP (Natural Language Processing) and CV (Computer Vision) fields. You can see the list of them below.</p>
 
 <p>Each model has a detail page where user can interact with the model using their own data. </p>
-<a href="https://www.google.com">Try it yourself!</a>
 
 ### List of models
 

@@ -5,8 +5,8 @@ import sys
 
 import pandas as pd
 
-from utils.data_downloader import DataHandler
-from utils.text_formatter import TweetTextFormatter
+from models.utils.data_downloader import DataHandler
+from models.utils.text_formatter import TweetTextFormatter
 
 
 class NaiveBayesModel:

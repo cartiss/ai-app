@@ -21,8 +21,7 @@ class ImageDataPreprocessor:
 
         :param data: tf.data.Dataset to split
         :param train_split: size of training set. Must be a float number in range [0; 1]
-        :param val_split: Optional. Size of the validation set. Must be a float number in range [0; 1]. If not specified,
-        inferred
+        :param val_split: Optional. Size of the validation set. Must be a float number in range [0; 1]
         :param test_split: Optional. Size of the test set if needed.
         :param shuffle: whether to shuffle the dataset before splitting. Defaults to True
         :return: Tuple of three Dataset objects containing train set, validation set and test set in this order.

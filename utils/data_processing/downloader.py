@@ -1,8 +1,9 @@
+import logging
 from pathlib import Path
 from zipfile import ZipFile
 
 
-class DataHandler:
+class DataDownloader:
     """Data handler."""
 
     @staticmethod
@@ -19,7 +20,7 @@ class DataHandler:
         self,
         kaggle_id: str,
         archive_name: str,
-        extract_path: str,
+        extract_path: Path,
         is_competition: bool = False,
     ) -> None:
         """
@@ -37,7 +38,7 @@ class DataHandler:
         else:
             api.competition_download_files(kaggle_id)
 
-        self._extract_dataset(archive_name=archive_name, dataset_path=Path(extract_path))
+        self._extract_dataset(archive_name=archive_name, dataset_path=extract_path)
 
     @staticmethod
     def _extract_dataset(archive_name: str, dataset_path: Path) -> None:
@@ -47,10 +48,14 @@ class DataHandler:
         :param archive_name: Archive name
         :param dataset_path: Path to the folder to extract the dataset into
         """
-        zf = ZipFile(archive_name)
+        try:
+            zf = ZipFile(archive_name)
+        except FileNotFoundError as error:
+            logging.error(f'Cannot find archive with name: {archive_name}!')
+            raise error
 
         if not dataset_path.is_dir():
-            Path.mk_dir(dataset_path)
+            Path.mkdir(dataset_path)
 
         zf.extractall(path=dataset_path)
         zf.close()
