@@ -79,11 +79,11 @@ class AnimalsClassificationModel:
 
         :param epochs: Quantity of epochs
         """
-
         self.train_ds, self.val_ds = self.dataset_loader.parse_dataset(
             batch_size=self.BATCH_SIZE,
             image_width=self.INPUT_SIZE[0],
-            image_height=self.INPUT_SIZE[1]
+            image_height=self.INPUT_SIZE[1],
+            validation_split=0.3
         )
 
         self.train_ds, self.test_ds = tf.keras.utils.split_dataset(self.train_ds, left_size=0.9, shuffle=True)
@@ -139,7 +139,8 @@ class ImageDatasetLoader:
     def parse_dataset(
         batch_size: int,
         image_height: int,
-        image_width: int
+        image_width: int,
+        validation_split: float
     ) -> Tuple[tf.data.Dataset, tf.data.Dataset]:
         """
         Download and parse dataset folders to tf.data.Dataset
@@ -147,6 +148,7 @@ class ImageDatasetLoader:
         :param batch_size: Batch size
         :param image_height: Image height
         :param image_width: Image width
+        :param validation_split: Validation split (0-1)
         :return: Tuple with training and validation sets
         """
         if not BASE_DATASET_PATH.exists():
@@ -174,7 +176,7 @@ class ImageDatasetLoader:
             batch_size=batch_size,
             image_size=(image_height, image_width),
             shuffle=True,
-            validation_split=0.3,
+            validation_split=validation_split,
             seed=42,
             subset='validation'
         )
