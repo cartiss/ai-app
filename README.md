@@ -10,32 +10,38 @@
 
 #### NLP:
 
-- [*Tweet sentiment analysis*](/naive_bayes/sentiment_analysis)
-- [*Tweet disaster classification*](/naive_bayes/tweet_disaster_classification)
+- [*Tweet sentiment analysis*](/models/naive_bayes/sentiment_analysis)
+- [*Tweet disaster classification*](/models/naive_bayes/tweet_disaster_classification)
 
 
 #### CV:
 
-- [*Animals classification*](/animals_classification) `IN PROGRESS`
-- [*Weather classification*](/weather_classification) `IN PROGRESS`
-- [*Military aircraft detection*](/military_aircraft_detection) `IN PROGRESS`
-- [*Car license plate detection*](/license_plate_detection) `IN PROGRESS`
+- [*Animals classification*](/models/animals_classification)
+- [*Weather classification*](/models/weather_classification) `IN PROGRESS`
+- [*Military aircraft detection*](/models/military_aircraft_detection) `IN PROGRESS`
+- [*Car license plate detection*](/models/license_plate_detection) `IN PROGRESS`
 
 ### Train models
 #### Prepare environment
 ```
-git clone https://github.com/cartiss/ai-app.git 
+git clone https://github.com/cartiss/ai_playground.git 
 cd ai-app
 poetry install
 ```
 #### Choose model to train
-- [*Tweet sentiment analysis*](/naive_bayes/sentiment_analysis) 
+- [*Animals classification*](/models/animals_classification) 
+
+```
+make train_animal
+```
+
+- [*Tweet sentiment analysis*](/models/naive_bayes/sentiment_analysis) 
 
 ```
 make train_sentiment
 ```
 
-- [*Tweet disaster classification*](/naive_bayes/tweet_disaster_classification)
+- [*Tweet disaster classification*](/models/naive_bayes/tweet_disaster_classification)
 
 ```
 make train_disaster

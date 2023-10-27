@@ -259,3 +259,68 @@ a {
 .same_width {
     width: 65px;
 }
+
+.input-file-container {
+  position: relative;
+  width: 225px;
+  margin-bottom: 15px;
+}
+
+.js .input-file-trigger {
+  display: flex;
+  justify-content: center;
+  padding: 10px 30px;
+  background: #fff;
+  color: #000;
+  font-size: 1em;
+  transition: all .4s;
+  cursor: pointer;
+  border: 1px #000 solid;
+  border-radius: 5px;
+}
+
+.js .input-file {
+  display: flex;
+  top: 0; left: 0;
+  width: 225px;
+  opacity: 0;
+  padding: 14px 0;
+  cursor: pointer;
+}
+
+.js .input-file:hover + .input-file-trigger,
+.js .input-file:focus + .input-file-trigger,
+.js .input-file-trigger:hover,
+.js .input-file-trigger:focus {
+  background: #e6e6e6;
+}
+
+.file-return {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.file-return:not(:empty) {
+  margin: 1em 0;
+}
+
+.js .file-return {
+  font-style: italic;
+  font-size: .9em;
+  font-weight: bold;
+}
+
+.js .file-return:not(:empty):before {
+  content: "Selected file: ";
+  font-style: normal;
+  font-weight: normal;
+}
+
+.animal-form {
+    margin: 80px 0px 50px 0px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}

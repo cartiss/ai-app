@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 import tensorflow as tf
 
-from typing import Tuple
+from typing import Tuple, Union
 from pathlib import Path
 
 from tensorflow.keras.applications import DenseNet121
@@ -25,30 +25,33 @@ BASE_DATASET_PATH = Path('models/animals_classification/dataset')
 class Predictor:
     """Predictor"""
 
-    def __init__(self, model_path: str, image_size: Tuple[int, int, int]):
+    def __init__(self, model_path: str):
         """
         Predictor initialization.
 
         :param model_path: Path to model to load it
-        :param image_size: Image size
         """
-        self.INPUT_SIZE = image_size
         self.model = load_model(model_path)
         self.dataset_loader = ImageDatasetLoader()
 
-    def predict(self, image_path: str) -> str:  # TODO: check in which form image will come from website
+    def predict(self, image: Union[str, np.ndarray], input_size: Tuple[int, int, int]) -> str:
         """
         Predict an animal on an example.
 
         :param image_path: Path to image
+        :param image_size: Image size
         :return: Predicted label
         """
-        image_array = cv2.resize(cv2.imread(image_path), (self.INPUT_SIZE[0], self.INPUT_SIZE[1]))
+        if type(image) == np.ndarray:
+            image = cv2.imdecode(image, cv2.IMREAD_UNCHANGED)
+        else:
+            image = cv2.imread(image)
+
+        image_array = cv2.resize(image, (input_size[0], input_size[1]))
         image_array = image_array.reshape(1, image_array.shape[0], image_array.shape[1], 3)
 
         predict = self.model.predict(image_array)
         idx = np.argmax(predict)
-        print(idx)
 
         return self.dataset_loader.get_label(int(idx))
 

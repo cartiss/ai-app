@@ -7,7 +7,7 @@ db_password = config('SQL_PASSWORD')
 db_name = config('SQL_DB')
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{}:{}@db/{}'.format(db_user, db_password, db_name)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{}:{}@localhost/{}'.format(db_user, db_password, db_name)
 db = SQLAlchemy(app)
 
 
