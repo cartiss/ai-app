@@ -38,8 +38,8 @@ class SentimentAnalysisModel:
 
         data_downloader = DataDownloader()
         data_downloader.download_kaggle_dataset(kaggle_id='kazanova/sentiment140',
-                                             archive_name='sentiment140.zip',
-                                             extract_path='naive_bayes/datasets/')
+                                                archive_name='sentiment140.zip',
+                                                extract_path='naive_bayes/datasets/')
 
         data = pd.read_csv(dataset_path,
                            encoding='latin-1',

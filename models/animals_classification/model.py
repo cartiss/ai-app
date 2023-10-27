@@ -42,7 +42,7 @@ class Predictor:
         :param image_size: Image size
         :return: Predicted label
         """
-        if type(image) == np.ndarray:
+        if type(image) is np.ndarray:
             image = cv2.imdecode(image, cv2.IMREAD_UNCHANGED)
         else:
             image = cv2.imread(image)
