@@ -1,24 +1,20 @@
 """Run Flask application."""
-import pathlib
 import sys
+import pathlib
 from decouple import config
 import numpy as np
 
 from flask import render_template, request
 
-
-
 PARENT_FOLDER = str(pathlib.Path(__file__).parent.parent.absolute())
 sys.path.insert(0, PARENT_FOLDER)
-from models.animals_classification.model import Predictor
+from models.animals_classification.model import Predictor  # noqa: E402
 
-# flake8: noqa
 from logic import make_sentiment_prediction, make_disaster_prediction, compile_results, make_homepage_queryset, \
-    make_category_projects_queryset
-# flake8: noqa
-from web.models import db, app
-from models.naive_bayes.sentiment_analysis.model import SentimentAnalysisModel
-from models.naive_bayes.tweet_disaster_classification.model import NaiveBayesModel
+    make_category_projects_queryset  # noqa: E402
+from web.models import db, app  # noqa: E402
+from models.naive_bayes.sentiment_analysis.model import SentimentAnalysisModel  # noqa: E402
+from models.naive_bayes.tweet_disaster_classification.model import NaiveBayesModel  # noqa: E402
 
 sentiment_analysis_model = SentimentAnalysisModel('trained_models/sentiment_analysis/model.json')
 parameters = sentiment_analysis_model.import_params()
