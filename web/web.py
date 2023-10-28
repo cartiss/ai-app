@@ -1,15 +1,15 @@
 """Run Flask application."""
 import sys
 import pathlib
-from decouple import config
 import numpy as np
 
+from decouple import config
 from flask import render_template, request
 
 PARENT_FOLDER = str(pathlib.Path(__file__).parent.parent.absolute())
 sys.path.insert(0, PARENT_FOLDER)
-from models.animals_classification.model import Predictor  # noqa: E402
 
+from models.animals_classification.model import Predictor  # noqa: E402
 from logic import make_sentiment_prediction, make_disaster_prediction, compile_results, make_homepage_queryset, \
     make_category_projects_queryset  # noqa: E402
 from web.models import db, app  # noqa: E402
