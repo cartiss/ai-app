@@ -5,8 +5,8 @@ import sys
 
 import pandas as pd
 
-from models.utils.data_downloader import DataHandler
-from models.utils.text_formatter import TweetTextFormatter
+from utils.data_processing.downloader import DataDownloader
+from utils.text_formatter import TweetTextFormatter
 
 
 class NaiveBayesModel:
@@ -77,10 +77,10 @@ class NaiveBayesModel:
         try:
             data = pd.read_csv(os.path.join(dataset_path, 'train.csv'), index_col='id')
         except FileNotFoundError:
-            data_handler = DataHandler()
-            api = data_handler.kaggle_authenticate()
-            data_handler.download_kaggle_competition(api, 'nlp-getting-started')
-            data_handler.extract_dataset('nlp-getting-started.zip', dataset_path)
+            data_downloader = DataDownloader()
+            api = data_downloader.kaggle_authenticate()
+            data_downloader.download_kaggle_competition(api, 'nlp-getting-started')
+            data_downloader.extract_dataset('nlp-getting-started.zip', dataset_path)
             data = pd.read_csv(os.path.join(dataset_path, 'train.csv'), index_col='id')
 
         return data

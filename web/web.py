@@ -1,23 +1,24 @@
 """Run Flask application."""
-import pathlib
 import sys
-from decouple import config
+import pathlib
+import numpy as np
 
+from decouple import config
 from flask import render_template, request
 
 PARENT_FOLDER = str(pathlib.Path(__file__).parent.parent.absolute())
 sys.path.insert(0, PARENT_FOLDER)
 
-# flake8: noqa
+from models.animals_classification.model import Predictor  # noqa: E402
 from logic import make_sentiment_prediction, make_disaster_prediction, compile_results, make_homepage_queryset, \
-    make_category_projects_queryset
-# flake8: noqa
-from models import db, app
-from naïve_bayes.sentiment_analysis.model import SentimentAnalysisModel
-from naïve_bayes.tweet_disaster_classification.model import NaiveBayesModel
+    make_category_projects_queryset  # noqa: E402
+from web.models import db, app  # noqa: E402
+from models.naive_bayes.sentiment_analysis.model import SentimentAnalysisModel  # noqa: E402
+from models.naive_bayes.tweet_disaster_classification.model import NaiveBayesModel  # noqa: E402
 
 sentiment_analysis_model = SentimentAnalysisModel('trained_models/sentiment_analysis/model.json')
 parameters = sentiment_analysis_model.import_params()
+predictor = Predictor(pathlib.Path('trained_models') / 'animals_classification' / 'animals_model.h5')
 
 disaster_classification_model = NaiveBayesModel()
 disaster_classification_model.import_parameters('class_freq.json', 'words_freq.json')
@@ -55,6 +56,20 @@ def tweet_model() -> str:
         return render_template('tweet_model.html', title="Tweet Model", results=results)
 
     return render_template('tweet_model.html', title="Tweet Model")
+
+
+@app.route("/animals-model/", methods=["GET", "POST"])
+def animals_model() -> str:
+    """Render tweet model page."""
+    if request.method == 'POST':
+        image_bytes = request.files['image'].read()
+        image_numpy = np.frombuffer(image_bytes, np.uint8)
+
+        animal_prediction = predictor.predict(image_numpy, (224, 224, 3))
+
+        return render_template('animals_model.html', title="Animals Model", result=animal_prediction)
+
+    return render_template('animals_model.html', title="Animals Model")
 
 
 def main() -> None:

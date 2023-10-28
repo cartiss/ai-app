@@ -2,7 +2,7 @@ import logging
 from typing import List, Tuple, Union
 
 import pandas as pd
-from models import db, Project, Category
+from web.models import db, Project, Category
 
 
 def make_sentiment_prediction(text, sentiment_analysis_model, parameters) -> pd.Series:
